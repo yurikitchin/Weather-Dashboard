@@ -1,0 +1,72 @@
+.container {
+    display: grid;
+    grid-template-columns: 16.5vw 16.5vw 16.5vw 16.5vw 16.5vw 16.5vw ;
+    grid-template-rows: minmax(auto);
+    grid-template-areas: 
+    "search mainDis mainDis mainDis mainDis mainDis"
+    "buttons mainDis mainDis mainDis mainDis mainDis"
+    "buttons mainDis mainDis mainDis mainDis mainDis"
+    "buttons mainDis mainDis mainDis mainDis mainDis"
+    "buttons foreT foreT . . ."
+    "buttons forecast forecast forecast forecast forecast"
+    "buttons forecast forecast forecast forecast forecast"
+    "buttons forecast forecast forecast forecast forecast"
+    "buttons forecast forecast forecast forecast forecast"
+    "buttons forecast forecast forecast forecast forecast";
+}
+
+.btn {
+    margin: 10px;
+    width: 15vw;
+}
+
+.verticalBtns {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: space-evenly;
+grid-area: buttons;
+}
+
+#forecastBoxes {
+    display: flex;
+    flex-direction: row;
+    grid-area: forecast;
+}
+
+.forecast {
+    border: solid 5px black;
+    margin: 10px;
+    width: 20vw;
+}
+
+#forecastTitle {
+    grid-area: foreT;
+}
+
+.dashboardTitle {
+    text-align: center;
+    height: 5vh;
+    margin: 1px;
+    margin-bottom: 14px;
+    padding: 5vh;
+    background-image: linear-gradient(to right top, #6c9be3, #4f8ae9, #3377ec, #1963ed, #124ceb);
+    background-clip: border-box;
+}
+
+
+#searchBar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 15vw;
+    grid-area: search;
+    margin: 10px;
+}
+
+#mainDisplay {
+    border: solid 5px black;
+    grid-area: mainDis;
+
+}
+

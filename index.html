@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1 class="dashboardTitle">- Weather Dashoard -</h1>
+    <main class="container">
+
+        <div id="searchBar">
+            <label for="API-search">Search for a city:</label>
+            <input type="search" id="API-search" name="API-search">
+            <button>Search</button>
+        </div>
+        
+        <div class="verticalBtns">
+            <button type="button" class="btn1">City 1</button>
+            <button type="button" class="btn2">City 2</button>
+            <button type="button" class="btn3">City 3</button>
+            <button type="button" class="btn4">City 4</button>
+            <button type="button" class="btn5">City 5</button>
+            <button type="button" class="btn6">City 6</button>
+            <button type="button" class="btn7">City 7</button>
+            <button type="button" class="btn8">City 8</button>
+        </div>
+
+        <div id="mainDisplay">
+            <h2 id="cityDate"> City dd/mm/yyyy ⛅ </h2>
+            <h3 id="mainTemp">Temp: 31°C </h3>
+            <h3 id="mainWind">Wind: 10 Km/h</h3>
+            <h3 id="mainHumidity">Humidity: 50%</h3>
+            <h3 id="mainUV">UV index:<span id="uvSpan">0.47</span></h3>
+        </div>
+
+        <div id="forecastTitle">
+            <h2>5-Day Forecast</h2>
+        </div>
+
+        <div id="forecastBoxes">
+            <div class ="forecast" id="forecast1">
+                <h3 class="forecastDate">dd/mm/yyyy</h3>
+                <p class="forcastEmoji">⛅ </p>
+                <h3 class="forecastTemp">Temp: 31°C</h3>
+                <h3 class="forecastWind">Wind: 10 Km/h</h3>
+                <h3 class="forecastHumdity">Humidity: 50%</h3>
+            </div>
+
+            <div class ="forecast" id="forecast2">
+                <h3 class="forecastDate">dd/mm/yyyy</h3>
+                <p class="forcastEmoji">⛅ </p>
+                <h3 class="forecastTemp">Temp: 31°C</h3>
+                <h3 class="forecastWind">Wind: 10 Km/h</h3>
+                <h3 class="forecastHumdity">Humidity: 50%</h3>
+            </div>
+
+            <div class ="forecast" id="forecast3">
+                <h3 class="forecastDate">dd/mm/yyyy</h3>
+                <p class="forcastEmoji">⛅ </p>
+                <h3 class="forecastTemp">Temp: 31°C</h3>
+                <h3 class="forecastWind">Wind: 10 Km/h</h3>
+                <h3 class="forecastHumdity">Humidity: 50%</h3>
+            </div>
+
+            <div class ="forecast" id="forecast4">
+                <h3 class="forecastDate">dd/mm/yyyy</h3>
+                <p class="forcastEmoji">⛅ </p>
+                <h3 class="forecastTemp">Temp: 31°C</h3>
+                <h3 class="forecastWind">Wind: 10 Km/h</h3>
+                <h3 class="forecastHumdity">Humidity: 50%</h3>
+            </div>
+
+            <div class ="forecast" id="forecast5">
+                <h3 class="forecastDate">dd/mm/yyyy</h3>
+                <p class="forcastEmoji">⛅ </p>
+                <h3 class="forecastTemp">Temp: 31°C</h3>
+                <h3 class="forecastWind">Wind: 10 Km/h</h3>
+                <h3 class="forecastHumdity">Humidity: 50%</h3>
+            </div>
+        </div>
+
+    </main>
+    
+</body>
+</html>
