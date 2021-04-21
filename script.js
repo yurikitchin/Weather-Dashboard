@@ -1,26 +1,34 @@
-var  setLocation = ""
+var  setLocation = "what"
 var latitude = "";
 var longitude = "";
 var dateDisplay = moment(new Date()).format("DD/MM/YYYY");
 document.getElementById("date").innerHTML = dateDisplay;
-var changeDate = new moment().add(1, "day")
-console.log(changeDate.format("DD/MM/YYYY"));
-console.log(dateDisplay);
 var cityName = ""
 var date = document.getElementById('date')
 var fiveDayArray = []
-console.log(date)
 var date24hourtime = moment().format('YYYY-MM-DD ' + 'HH:00:00');
-console.log(moment().format('YYYY-MM-DD ' + 'HH:00:00'))
+var forecastboxes = Array.from(document.querySelectorAll(".forecast"));
+document.getElementById("searchBTN").addEventListener('click', changeCity)
+//Change city function takes user input and changes setLocation variable to q=city format with city = user input
+function changeCity(event){
+    event.preventDefault();
+    setLocation = "q="+document.querySelector('#API-search').value
+    fetch('https://api.openweathermap.org/data/2.5/weather?'+setLocation+'&units=metric&appid=642a6ac8e3b17623bb06ef71f7b34ae8')
+    .then(function (response){
+        return response.json();})
+    .then(function (data) {
+        setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
+        fetchFunction();
+        forecastFunction();})
+}
+
 
 function successCallback(position) {
-    console.log(position)
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
     setLocation = "lat="+latitude+"&lon="+longitude
-    console.log(setLocation)
     fetchFunction()
-    //forecastFunction()
+    forecastFunction()
 }
 
 function errorCallback(error){
@@ -38,20 +46,17 @@ function fetchFunction() {
     .then(function (response){
         return response.json();})
     .then(function (data) {
-        console.log(data)
-        // console.log(data.list[0])
-        // console.log(data.list[0].dt_txt)
-        // console.log(data.list[0].main.temp)
+        setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
         fiveDayArray = data.list
-
         document.getElementById("city").innerHTML = data.name+" ";
         //             id="mainTemp"
+        cityName = data.name
         document.getElementById("mainTemp").innerHTML = data.main.temp
         //             id="mainWind"
         document.getElementById("mainWind").innerHTML = data.wind.speed
         //             id="mainHumidity"
         document.getElementById("mainHumidity").innerHTML = data.main.humidity
-
+        createBtnfunction()
         //uv not located in the ist called by this API, run another fetch function to populate the UV indiex
         return fetch('https://api.openweathermap.org/data/2.5/onecall?'+setLocation+'&exclude=minutely,hourly&appid=642a6ac8e3b17623bb06ef71f7b34ae8&units=metric');})
         .then(function (response){
@@ -62,31 +67,77 @@ function fetchFunction() {
             }
         })
         .then (function (data) {
-            console.log(data)
             document.getElementById("mainUV").innerHTML = data.current.uvi
         })
         
     .catch (error => console.log(error))};
         
 
-
+//use forecastboxes variable to manipulate the forecast boxes
 function forecastFunction() {
 //     //'https://api.openweathermap.org/data/2.5/forecast?'+setLocation+'&units=metric&appid=642a6ac8e3b17623bb06ef71f7b34ae8'
-    fetch('https://api.openweathermap.org/data/2.5/onecall?'+setLocation+'&exclude=current,minutely,hourly&appid=642a6ac8e3b17623bb06ef71f7b34ae8&units=metric')
+    fetch('https://api.openweathermap.org/data/2.5/onecall?'+setLocation+'&units=metric&exclude=current,minutely,hourly&appid=642a6ac8e3b17623bb06ef71f7b34ae8')
     .then(function (response){
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
+        //sets the dates of each forecast box
         document.querySelector("#forecast1 .forecastDate").innerHTML = new moment().add(1, "day").format("DD/MM/YYYY")
-    })
-//     for (let i = 0; i < fiveDayArray.length; i++) {
-//         forecastData = fiveDayArray[i];
-//         var ArraydateTime = forecastData.dt_txt;
-//         console.log(ArraydateTime)
-//         console.log(date24hourtime)
-//         if (ArraydateTime === date24hourtime) {
-//             console.log(forecastData)
+        document.querySelector("#forecast2 .forecastDate").innerHTML = new moment().add(2, "day").format("DD/MM/YYYY")
+        document.querySelector("#forecast3 .forecastDate").innerHTML = new moment().add(3, "day").format("DD/MM/YYYY")
+        document.querySelector("#forecast4 .forecastDate").innerHTML = new moment().add(4, "day").format("DD/MM/YYYY")
+        document.querySelector("#forecast5 .forecastDate").innerHTML = new moment().add(5, "day").format("DD/MM/YYYY")
+        //creat a for loop that cycles through each forcast box and populates the data
+        var iconCode = ""
+        var temp = ""
+        var wind = ""
+        var humidity = ""
+        var iconURL = ""
+        var forecastID = ""
+        for (let i = 0; i < forecastboxes.length; i++) {
+            iconCode = data.daily[i].weather[0].icon
+            temp = "Temp: " + data.daily[i].temp.day + "°C"
+            wind = "Wind: " + data.daily[i].wind_speed + "m/s"
+            humidity = "Humidity: " + data.daily[i].humidity + "%"
+            iconURL = "http://openweathermap.org/img/wn/"+iconCode+"@2x.png"
+            forecastID = "#"+forecastboxes[i].id;
+            //needs to loop through one call set iconCoe and iconURL then change the element in the DOM
+            document.querySelector(forecastID +" .forcastEmoji").setAttribute("src", iconURL)
+            document.querySelector(forecastID +" .forecastTemp").innerHTML = temp
+            document.querySelector(forecastID +" .forecastWind").innerHTML = wind
+            document.querySelector(forecastID +" .forecastHumdity").innerHTML = humidity
+        }
+    })}
 
-}
-forecastFunction()
+    var count = 1
+    var arrayKey = "";
+    var locationArray = [];
+
+    function createBtnfunction(){
+    
+        buttonDisplay = document.querySelector(".verticalBtns");
+        var createBtn = document.createElement("button");
+        var idname = "btn"
+        createBtn.id = idname + count;
+        arrayKey=createBtn.id;
+        locationArray.push({[arrayKey]: setLocation, cityName})
+        localStorage.setItem('location', JSON.stringify(locationArray))
+        count = count+1        
+        createBtn.setAttribute('type', 'submit');
+        createBtn.setAttribute('class', 'btn');
+        createBtn.textContent = cityName;
+        buttonDisplay.appendChild(createBtn)
+        }
+    
+        function checkLocalStorage (){
+            var existingstorage = JSON.parse(localStorage.getItem('location'))
+            if (existingstorage != null){
+                locationArray = existingstorage
+                
+            } else {
+                //locationArray = existingstorage;
+                console.log(locationArray)
+            }
+        }
+ 
+    
