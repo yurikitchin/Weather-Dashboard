@@ -70,3 +70,7 @@ grid-area: buttons;
 
 }
 
+#forecast1 .forecastDate {
+    text-decoration: underline;
+}
+
