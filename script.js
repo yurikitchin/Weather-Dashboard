@@ -55,6 +55,7 @@ function fetchFunction() {
     .then(function (response){
         return response.json();})
     .then(function (data) {
+        console.log(data)
         setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
         fiveDayArray = data.list
         document.getElementById("city").innerHTML = data.name+" ";
@@ -65,6 +66,8 @@ function fetchFunction() {
         document.getElementById("mainWind").innerHTML = data.wind.speed
         //             id="mainHumidity"
         document.getElementById("mainHumidity").innerHTML = data.main.humidity
+        // display image 
+        document.getElementById("mainForecastEmoji").setAttribute('src', "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
         checkStorage = JSON.parse(localStorage.getItem('location'));
         if (checkStorage === null){
         createBtnfunction()}
@@ -122,7 +125,6 @@ function forecastFunction() {
 
     //needs to run when search button is pressed
     function createBtnfunction(){
-        debugger
         console.log('hello')
         buttonDisplay = document.querySelector(".verticalBtns");
         var createBtn = document.createElement("button");
