@@ -1,6 +1,19 @@
+#backgroundIMG {
+    background-image: url(./Assets/neda-astani-KWTkd7mHqKE-unsplash.jpg);
+    opacity: 0.65;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
+}
+
 .container {
+    background-color: transparent;
     display: grid;
-    
     grid-template-columns: 200px 1fr 1fr 1fr 1fr 1fr ;
     grid-template-rows: minmax(auto);
     grid-template-areas: 
@@ -18,15 +31,34 @@
 }
 
 .btn {
-    margin: 10px;
+    border-radius: 2em;
+    padding: .75em;
+    font-size: 110%;
+    font-weight: 750;
     width: 100%;
+    margin-bottom: 10px;
+}
+
+.btn:hover {
+    background-color:#4095c6;
+    
+    }
+
+#API-search {
+    border-radius: 2em;
+    padding: .75em;
 }
 
 .verticalBtns {
+margin: 10px;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
 grid-area: buttons;
+background-color: #3587D4;
+opacity: 0.75;
+padding: 10px;
+border-radius: 16px;
 }
 
 #forecastBoxes {
@@ -36,21 +68,27 @@ grid-area: buttons;
 }
 
 .forecast {
-    border: solid 5px black;
     margin: 10px;
     width: 100%;
+    border-radius: 16px;
+    background-color: #3587D4;
+    opacity: 0.75;
 }
 
 #forecastTitle {
     grid-area: foreT;
+    margin-left: 10px;
 }
 
 .dashboardTitle {
+    font-family: 'Anton', sans-serif;
+    border-radius: 16px;
     text-align: center;
     height: 5vh;
     margin: 1px;
     margin-bottom: 14px;
     padding: 5vh;
+    background-color: unset;
     background-image: linear-gradient(to right top, #6c9be3, #4f8ae9, #3377ec, #1963ed, #124ceb);
     background-clip: border-box;
 }
@@ -60,15 +98,35 @@ grid-area: buttons;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 100%;
     grid-area: search;
     margin: 10px;
 }
 
-#mainDisplay {
-    border: solid 5px black;
-    grid-area: mainDis;
+#searchBar * {
+    margin-bottom: 10px;
+}
 
+#searchLabel {
+    text-align: center;
+}
+
+#mainDisplay {
+    display: flex;
+    justify-content: space-evenly;
+    grid-area: mainDis;
+    border-radius: 16px;
+    background-color: #3587D4;
+    opacity: 0.75;
+
+}
+
+#emoji {
+   margin-top: auto;
+   margin-bottom: auto;
+}
+
+#mainForecastEmoji{
+    height: 200px;
 }
 
 @media only screen and (max-width: 900px) {
@@ -82,7 +140,6 @@ grid-area: buttons;
         align-items: center;
         height: 400px;
         min-width: 400px;
-        border-radius: 16px;
         justify-content: space-evenly;
         padding: 1.5rem;
         transition: 0.2s;
