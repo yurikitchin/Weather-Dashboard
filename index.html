@@ -8,25 +8,31 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="backgroundIMG"></div>
 
     <h1 class="dashboardTitle">- Weather Dashoard -</h1>
     <main class="container">
 
+        <div id="mainDisplay">
+            <div id='information'>
+                <h2> <span id='city'>City </span><span id='date'>dd/mm/yyyy ⛅ </span></h2>
+                <h3>Temp: <span id="mainTemp" ></span> °C</h3>
+                <h3>Wind: <span id="mainWind"></span> Meter/Second</h3>
+                <h3>Humidity: <span id="mainHumidity"></span>%</h3>
+                <h3>UV index:<span id="mainUV">0.47</span></h3>
+            </div>
+            <div id="emoji">
+                <img id="mainForecastEmoji" src="">
+            </div>
+        </div>
+
         <div id="searchBar">
-            <label for="API-search">Search for a city:</label>
+            <label for="API-search" id="searchLabel">Search for a city:</label>
             <input type="text" id="API-search" name="API-search">
-            <button type="submit" value="submit" id="searchBTN">Search</button>
+            <button type="submit" value="submit" class="btn" id="searchBTN">Search</button>
         </div>
         
         <div class="verticalBtns">
-        </div>
-
-        <div id="mainDisplay">
-            <h2> <span id='city'>City </span><span id='date'>dd/mm/yyyy ⛅ </span></h2>
-            <h3>Temp: <span id="mainTemp" ></span> °C</h3>
-            <h3>Wind: <span id="mainWind"></span> Meter/Second</h3>
-            <h3>Humidity: <span id="mainHumidity"></span>%</h3>
-            <h3>UV index:<span id="mainUV">0.47</span></h3>
         </div>
 
         <div id="forecastTitle">
