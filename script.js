@@ -124,7 +124,6 @@ function forecastFunction() {
 
     //needs to run when search button is pressed
     function createBtnfunction(){
-        console.log('hello')
         buttonDisplay = document.querySelector(".verticalBtns");
         var createBtn = document.createElement("button");
         var idname = "btn"
@@ -135,9 +134,7 @@ function forecastFunction() {
         count = count+1        
         createBtn.setAttribute('type', 'submit');
         createBtn.setAttribute('class', 'btn');
-        console.log(btnName)
         createBtn.textContent = cityName;
-        console.log(cityName)
         buttonDisplay.appendChild(createBtn)
         }
     
