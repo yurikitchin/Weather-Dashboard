@@ -55,7 +55,6 @@ function fetchFunction() {
     .then(function (response){
         return response.json();})
     .then(function (data) {
-        console.log(data)
         setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
         fiveDayArray = data.list
         document.getElementById("city").innerHTML = data.name+" ";
@@ -168,7 +167,6 @@ function forecastFunction() {
 document.querySelectorAll('.btn').forEach(item => {
     item.addEventListener('click', event =>{
         setLocation = "q="+event.currentTarget.textContent;
-        console.log(setLocation)
         fetch('https://api.openweathermap.org/data/2.5/weather?'+setLocation+'&units=metric&appid=642a6ac8e3b17623bb06ef71f7b34ae8')
         .then(function (response){
             return response.json();})
