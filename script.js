@@ -1,4 +1,4 @@
-var  setLocation = "what"
+var  setLocation = ""
 var latitude = "";
 var longitude = "";
 var dateDisplay = moment(new Date()).format("DD/MM/YYYY");
@@ -9,6 +9,13 @@ var fiveDayArray = []
 var date24hourtime = moment().format('YYYY-MM-DD ' + 'HH:00:00');
 var forecastboxes = Array.from(document.querySelectorAll(".forecast"));
 document.getElementById("searchBTN").addEventListener('click', changeCity)
+var btnName = ""
+var count = 1
+var arrayKey = "";
+var locationArray = [];
+navigator.geolocation.getCurrentPosition(successCallback, errorCallback)
+checkLocalStorage ()
+
 //Change city function takes user input and changes setLocation variable to q=city format with city = user input
 function changeCity(event){
     event.preventDefault();
@@ -17,9 +24,11 @@ function changeCity(event){
     .then(function (response){
         return response.json();})
     .then(function (data) {
+        cityName = data.name;
         setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
         fetchFunction();
-        forecastFunction();})
+        forecastFunction()
+        createBtnfunction();})
 }
 
 
@@ -29,6 +38,7 @@ function successCallback(position) {
     setLocation = "lat="+latitude+"&lon="+longitude
     fetchFunction()
     forecastFunction()
+    
 }
 
 function errorCallback(error){
@@ -37,7 +47,6 @@ function errorCallback(error){
 }
 
 //retrieve Users location
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
 //q=city is the API syntax for searching a city set q=city as setLocation in search bar
 function fetchFunction() {
@@ -56,7 +65,9 @@ function fetchFunction() {
         document.getElementById("mainWind").innerHTML = data.wind.speed
         //             id="mainHumidity"
         document.getElementById("mainHumidity").innerHTML = data.main.humidity
-        createBtnfunction()
+        checkStorage = JSON.parse(localStorage.getItem('location'));
+        if (checkStorage === null){
+        createBtnfunction()}
         //uv not located in the ist called by this API, run another fetch function to populate the UV indiex
         return fetch('https://api.openweathermap.org/data/2.5/onecall?'+setLocation+'&exclude=minutely,hourly&appid=642a6ac8e3b17623bb06ef71f7b34ae8&units=metric');})
         .then(function (response){
@@ -109,12 +120,10 @@ function forecastFunction() {
         }
     })}
 
-    var count = 1
-    var arrayKey = "";
-    var locationArray = [];
-
+    //needs to run when search button is pressed
     function createBtnfunction(){
-    
+        debugger
+        console.log('hello')
         buttonDisplay = document.querySelector(".verticalBtns");
         var createBtn = document.createElement("button");
         var idname = "btn"
@@ -125,19 +134,47 @@ function forecastFunction() {
         count = count+1        
         createBtn.setAttribute('type', 'submit');
         createBtn.setAttribute('class', 'btn');
+        console.log(btnName)
         createBtn.textContent = cityName;
+        console.log(cityName)
         buttonDisplay.appendChild(createBtn)
         }
     
+        //creat a function that checks local storage, then loops through the save array and creates buttons from the saved data
+        //needs to run when page loads
         function checkLocalStorage (){
             var existingstorage = JSON.parse(localStorage.getItem('location'))
             if (existingstorage != null){
                 locationArray = existingstorage
-                
-            } else {
-                //locationArray = existingstorage;
-                console.log(locationArray)
-            }
-        }
+                idname = "btn" + count;
+                for (let i = 0; i < locationArray.length; i++) {
+                var populateBtns = locationArray[i];
+                //var buttonLocation = populateBtns[idname];
+                buttonDisplay = document.querySelector(".verticalBtns");
+                var createBtn = document.createElement("button");
+                createBtn.setAttribute('type', 'submit');
+                createBtn.setAttribute('class', 'btn');
+                createBtn.id = "btn"+count;
+                count = count+1
+                createBtn.textContent = populateBtns.cityName
+                buttonDisplay.appendChild(createBtn)
+                } 
+        } 
+    }
  
-    
+//add event listener to buttons saved
+document.querySelectorAll('.btn').forEach(item => {
+    item.addEventListener('click', event =>{
+        setLocation = "q="+event.currentTarget.textContent;
+        console.log(setLocation)
+        fetch('https://api.openweathermap.org/data/2.5/weather?'+setLocation+'&units=metric&appid=642a6ac8e3b17623bb06ef71f7b34ae8')
+        .then(function (response){
+            return response.json();})
+        .then(function (data) {
+            cityName = data.name;
+            setLocation = "lat="+data.coord.lat+"&lon="+data.coord.lon
+            fetchFunction();
+            forecastFunction()
+    })
+})
+})
