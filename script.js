@@ -66,7 +66,7 @@ function fetchFunction() {
         //             id="mainHumidity"
         document.getElementById("mainHumidity").innerHTML = data.main.humidity
         // display image 
-        document.getElementById("mainForecastEmoji").setAttribute('src', "http://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
+        document.getElementById("mainForecastEmoji").setAttribute('src', "https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png")
         checkStorage = JSON.parse(localStorage.getItem('location'));
         if (checkStorage === null){
         createBtnfunction()}
