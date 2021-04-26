@@ -88,7 +88,6 @@ function fetchFunction() {
 
 //use forecastboxes variable to manipulate the forecast boxes
 function forecastFunction() {
-//     //'https://api.openweathermap.org/data/2.5/forecast?'+setLocation+'&units=metric&appid=642a6ac8e3b17623bb06ef71f7b34ae8'
     fetch('https://api.openweathermap.org/data/2.5/onecall?'+setLocation+'&units=metric&exclude=current,minutely,hourly&appid=642a6ac8e3b17623bb06ef71f7b34ae8')
     .then(function (response){
         return response.json();
