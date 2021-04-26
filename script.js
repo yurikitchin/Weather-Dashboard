@@ -112,7 +112,7 @@ function forecastFunction() {
             temp = "Temp: " + data.daily[i].temp.day + "°C"
             wind = "Wind: " + data.daily[i].wind_speed + "m/s"
             humidity = "Humidity: " + data.daily[i].humidity + "%"
-            iconURL = "http://openweathermap.org/img/wn/"+iconCode+"@2x.png"
+            iconURL = "https://openweathermap.org/img/wn/"+iconCode+"@2x.png"
             forecastID = "#"+forecastboxes[i].id;
             //needs to loop through one call set iconCoe and iconURL then change the element in the DOM
             document.querySelector(forecastID +" .forcastEmoji").setAttribute("src", iconURL)
